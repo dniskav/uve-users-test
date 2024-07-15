@@ -1,10 +1,11 @@
+import { UsersService } from './../../../core/services/users/users.service';
 import { userInterface } from './../../../core/models/users/users.model';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { UsersService } from '../../../core/services/users/users.service';
+import { Component, OnDestroy, OnInit, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SubSink } from 'subsink';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { FormsModule } from '@angular/forms';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-users',
@@ -15,11 +16,18 @@ import { FormsModule } from '@angular/forms';
 })
 export class UsersComponent implements OnInit, OnDestroy {
   private subsink = new SubSink();
-  allUsers: userInterface[] = [];
-  filteredUsers: userInterface[] = [];
-  searchText: string = '';
+  allUsers = signal<userInterface[]>([]);
+  searchText =  signal<string>('');
+  filteredUsers = computed(() => 
+    this.allUsers().filter(user => Object.values(user).some( value => 
+      value.toString().toLowerCase().includes(this.searchText().toLocaleLowerCase())
+    ))
+  );
 
-  constructor(private userService: UsersService) {}
+
+  constructor() {}
+  public userService = inject(UsersService);
+
   ngOnDestroy(): void {
     this.subsink.unsubscribe();
   }
@@ -29,16 +37,17 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   loadUsers() {
-    this.subsink.sink = this.userService.getUsers().subscribe((data: any) => {
-      this.allUsers = data;
-      this.filteredUsers = data;
-      console.log(this.allUsers);
+    this.subsink.sink = this.userService.getUsers()
+    .pipe(
+      filter(users => users.length > 0)
+    )
+    .subscribe((data: any) => {
+      this.allUsers.set(data);
     });
   }
 
   searchTerm(e: any) {
-    const value = e.target.value;
-
-    this.filteredUsers = this.allUsers.filter((u) => u.name.includes(value));
+    const ev = e.target.value;
+    this.searchText.set(ev);
   }
 }

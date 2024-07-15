@@ -1,5 +1,4 @@
 .circle {
-  background-color: lightblue;
   display: flex;
   padding: 10px;
   border-radius: 54%;
@@ -8,4 +7,64 @@
   align-items: center;
   justify-content: center;
   font-size: 20px;
+  color: #fff;
+}
+
+.circle-container {
+  width: 62px;
+}
+
+.details-container {
+  height: 100%;
+  width: 196px;
+  line-height: 16px;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+.user-card {
+  width: 100%;
+  max-width: 300px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  margin-right: 15px;
+}
+
+.initials {
+  font-weight: bold;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.card-subtitle {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.card-text a {
+  color: #007bff;
+  font-size: 14px;
+}
+
+.card-text a:hover {
+  text-decoration: underline;
 }
