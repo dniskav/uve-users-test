@@ -1,0 +1,9 @@
+<div class="row">
+  <div class="col col-md-2">
+    <input class="form-control" placeholder="Search" type="text" (change)="searchTerm($event)">
+  </div>
+  <div class="col col-md-10">
+    <div *ngFor="let user of filteredUsers">
+      <app-user-detail [user]="user" class="custom-card"/>
+    </div>
+</div>

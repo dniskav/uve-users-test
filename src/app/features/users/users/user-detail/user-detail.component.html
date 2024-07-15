@@ -1,0 +1,13 @@
+<div class="card custom-card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col"><div class="circle">{{ getInitials(user.name) }}</div></div>
+      <div class="col">
+        {{ user.name }}
+        {{ user.username }}
+        <a [href]="'mailto:' + user.email">{{ user.email }}</a>
+        <a [href]="'tel:' + user.phone">{{ user.phone }}</a>
+      </div>
+    </div>
+  </div>
+</div>
