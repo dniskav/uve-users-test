@@ -1,13 +1,18 @@
-<div class="card custom-card">
-  <div class="card-body">
-    <div class="row">
-      <div class="col"><div class="circle">{{ getInitials(user.name) }}</div></div>
-      <div class="col">
-        {{ user.name }}
-        {{ user.username }}
-        <a [href]="'mailto:' + user.email">{{ user.email }}</a>
-        <a [href]="'tel:' + user.phone">{{ user.phone }}</a>
+<div class="card mb-3 user-card">
+  <div class="card-body d-flex align-items-center">
+    <div class="circle-container">
+      <div class="circle bg-primary mr-3">
+        <span class="initials">{{ getInitials(user.name) }}</span>
       </div>
+    </div>
+
+    <div class="details-container">
+      <h5 class="card-title">{{ user.name }}</h5>
+      <p class="card-subtitle mb-2 text-muted">{{ user.username }}</p>
+      <p class="card-text">
+        <a [href]="'mailto:' + user.email">{{ user.email }}</a><br>
+        <a [href]="'tel:' + user.phone">{{ user.phone }}</a>
+      </p>
     </div>
   </div>
 </div>
